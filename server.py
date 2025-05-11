@@ -40,12 +40,11 @@ def admin_dashboard():
 @app.route("/user")
 @login_required
 def user_dashboard():
-    # zobraz volné schránky, ty které jsi požádal a ty které máš přidělené
     lockers = Locker.query.filter(
         or_(
             Locker.is_active == False,                    # volné
-            Locker.requested_by == current_user.id,       # tvoje požadované
-            Locker.assigned_to == current_user.id         # tvoje přidělené
+            Locker.requested_by == current_user.id,       # požadované
+            Locker.assigned_to == current_user.id         # pridělené
         )
     ).all()
     return render_template("user_dashboard.html", lockers=lockers)
