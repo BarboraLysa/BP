@@ -4,6 +4,12 @@
 
 Prvá vec je vybrať si rolu: Admin, Používateľ. Admin je predpripravený účet, ktorý schvaľuje prístup k schránkam. Užívateľ si môže prihlásiť alebo si vytvoriť účet. Pri vytváraní účtu sa požaduje meno, email a heslo. Po vytvoreni účtu sa uźívateľ dokáže prihlásiť a požíadať si prístup k jemu zvolenej schránke. Výber medzi dvoma. Potom čaká na schválenie alebo zamietnutie. Pri schválení sa ukáže užívateľovi jednorázový kód ku schránke, ostatným užívateľom sa ukáže status schránky ako obsadený. Po zadaní kódu do fyzického hardwaru sa kód z databázy vymaže a schránka sa znova chová ako volná. 
 
+### Web Hosting
+
+Web hosting je urobený cez providera [Render](https://render.com/). 
+
+Stránka sa nachádza na adrese: https://bp-lysa.onrender.com/
+
 ### Admin
 
 Admin je predpripravený účet. Do adminu sa prihlási pomoocu emailu a hesla (viď nižšie). Po prihlásení vidí admin dve schránky pri ktorých je napísané, ktorý užívateľ ich má pridelené, ktorý používateľ si o ne zažiadal a aký kód je potrebný na odomknutie schránky. Poslednou časťou tabuľky je stĺpec "akcie" ktorý zodpovedá za spravovanie žiadostí od užívateľov. 
