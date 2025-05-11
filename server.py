@@ -7,10 +7,11 @@ import string
 from models import db, bcrypt, User, Locker
 from flask_cors import CORS
 from sqlalchemy import or_
+import os
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "tajny_kluc"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///lockers.db"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev_default_key")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "sqlite:///lockers.db")
 CORS(app)
 db.init_app(app)
 bcrypt.init_app(app)
