@@ -45,8 +45,8 @@ U8G2_SH1106_128X64_NONAME_F_4W_HW_SPI u8g2(
 
 // === WiFi Config ===
 const char* ssid       = "It burns when IP";
-const char* password   = "7UFpqg74NQpuFNGC";
-const char* server_url = "http://192.168.0.252:5000/check_code";
+const char* password   = "****************";
+const char* server_url = "https://bp-lysa.onrender.com//check_code";
 
 // === Keypad Config ===
 const byte ROWS = 4, COLS = 4;
