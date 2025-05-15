@@ -18,6 +18,11 @@ Email: admin@example.com
 
 Heslo: adminpassword
 
+
+# BP - Zapojenie
+![Schéma zapojenia v programe EAGLE](zapojenie.png)
+
+
 # BP - ESP kód
 
 Kód obsahuje: 
