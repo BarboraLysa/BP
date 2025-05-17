@@ -41,6 +41,8 @@
                     {% if locker.requested_by and not locker.is_active %}
                         <button class="btn btn-success approve-btn" data-id="{{ locker.id }}">Schváliť</button>
                         <button class="btn btn-danger reject-btn" data-id="{{ locker.id }}">Zamietnuť</button>
+                    {% elif not locker.is_active and not locker.requested_by %}
+                        <button class="btn btn-secondary gencode-btn" data-id="{{ locker.id }}">Vygenerovať kód</button>
                     {% else %}
                         -
                     {% endif %}
@@ -69,6 +71,24 @@
                 }).then(res => location.reload());
             });
         });
-        </script>
+
+        document.querySelectorAll('.gencode-btn').forEach(btn => {
+            button.addEventListener('click', () => {
+                const id = btn.getAttribute('data-id');
+                fetch(`/generate_code/${id}`, { method: 'POST' })
+                    .then(res => res.json())
+                    .then(data => {
+                    if (data.status === 'success') {
+                        alert(`Kód pre locker ${data.locker_id} vygenerovaný: ${data.code}`);
+                        location.reload();
+                    } else {
+                        alert(`Chyba: ${data.message}`);
+                    }
+                }).catch(() => alert('Nepodarilo sa vygenerovať kód'));
+            });
+        });
+
+    </script>
+
 </body>
 </html>

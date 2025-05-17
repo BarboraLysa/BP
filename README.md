@@ -117,8 +117,14 @@ void setup() {
 }
 
 void loop() {
+  unsigned long now = millis();
+
+  // Resolving milis overflow
+  if (now < lastActivity) {
+    lastActivity = now;
+  }
   // Sleep-mode check
-  if (millis() - lastActivity > IDLE_TIMEOUT) {
+  if (now - lastActivity > IDLE_TIMEOUT) {
     u8g2.clearBuffer();
     u8g2.setFont(u8g2_font_ncenB10_tr);
     u8g2.drawStr(0, 20, "Sleep mode...");
