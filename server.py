@@ -138,7 +138,6 @@ def check_code():
     if not entered_code:
         return "invalid", 400
 
-    # Skontroluj, či zadaný kód patrí nejakej aktívnej schránke
     locker = Locker.query.filter_by(code=entered_code, is_active=True).first()
     if locker:
         
@@ -165,6 +164,23 @@ def generate_code(locker_id):
     locker.is_active = True
     db.session.commit()
     return jsonify({"status": "success", "locker_id": locker.id, "code": code}), 200
+
+@app.route("/delete_code/<int:locker_id>", methods=["POST"])
+@login_required
+def delete_code(locker_id):
+    locker = Locker.query.get(locker_id)
+    if not locker:
+        return jsonify({"status": "error", "message": "Schránka neexistuje"}), 404
+
+    if not locker.is_active or not locker.code:
+        return jsonify({"status": "error", "message": "Žiadny kód na vymazanie"}), 400
+
+    locker.code = None
+    locker.is_active = False
+    locker.assigned_to = None
+    locker.requested_by = None
+    db.session.commit()
+    return jsonify({"status": "success", "locker_id": locker.id}), 200
 
 
 if __name__ == "__main__":

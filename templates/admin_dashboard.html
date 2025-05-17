@@ -43,6 +43,8 @@
                         <button class="btn btn-danger reject-btn" data-id="{{ locker.id }}">Zamietnuť</button>
                     {% elif not locker.is_active and not locker.requested_by %}
                         <button class="btn btn-secondary gencode-btn" data-id="{{ locker.id }}">Vygenerovať kód</button>
+                    {% elif locker.is_active %}
+                        <button class="btn btn-warning delete-code-btn" data-id="{{ locker.id }}">Vymazať kód</button>
                     {% else %}
                         -
                     {% endif %}
@@ -87,6 +89,31 @@
                 }).catch(() => alert('Nepodarilo sa vygenerovať kód'));
             });
         });
+
+        document.querySelectorAll('.delete-code-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const id = btn.getAttribute('data-id');
+                if (!confirm(`Naozaj vymazať kód pre locker ${id}?`)) return;
+
+                try {
+                    const res = await fetch(`/delete_code/${id}`, {
+                    method: 'POST',
+                    credentials: 'same-origin'
+                });
+                const data = await res.json();
+                if (res.ok && data.status === 'success') {
+                    alert(`Kód pre locker ${id} vymazaný`);
+                    location.reload();
+                } else {
+                    alert(`Chyba: ${data.message}`);
+                }
+                } catch (err) {
+                    console.error(err);
+                    alert('Nepodarilo sa vymazať kód');
+                }
+            });
+        });
+
 
     </script>
 
