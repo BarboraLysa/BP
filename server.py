@@ -151,6 +151,21 @@ def check_code():
         return f"locker{locker.id}", 200
     return "invalid", 200
 
+@app.route("/generate_code/<int:locker_id>", methods=["POST"])
+@login_required
+def generate_code(locker_id):
+    locker = Locker.query.get(locker_id)
+    if not locker:
+        return jsonify({"status": "error", "message": "Schránka neexistuje"}), 404
+    if locker.is_active:
+        return jsonify({"status": "error", "message": "Schránka už obsadená"}), 400
+        
+    code = ''.join(random.choices(string.digits, k=4))
+    locker.code = code
+    locker.is_active = True
+    db.session.commit()
+    return jsonify({"status": "success", "locker_id": locker.id, "code": code}), 200
+
 
 if __name__ == "__main__":
     with app.app_context():

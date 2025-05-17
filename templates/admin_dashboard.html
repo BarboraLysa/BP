@@ -72,9 +72,9 @@
             });
         });
 
-        document.querySelectorAll('.gencode-btn').forEach(btn => {
+        document.querySelectorAll('.gencode-btn').forEach(button => {
             button.addEventListener('click', () => {
-                const id = btn.getAttribute('data-id');
+                const id = button.getAttribute('data-id');
                 fetch(`/generate_code/${id}`, { method: 'POST' })
                     .then(res => res.json())
                     .then(data => {
