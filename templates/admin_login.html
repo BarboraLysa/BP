@@ -28,16 +28,19 @@
         <button type="submit" class="btn btn-danger">Prihlásiť sa</button>
     </form>
     <script>
+    // Funkcia pre prepínanie typu inputu medzi "password" a "text"
     function setupPasswordToggle(fieldId, iconId) {
         const input = document.getElementById(fieldId);
         const icon = document.getElementById(iconId);
         icon.addEventListener("click", () => {
             const isPassword = input.type === "password";
             input.type = isPassword ? "text" : "password";
+            // Prepni ikonu medzi fa-eye a fa-eye-slash
             icon.classList.toggle("fa-eye");
             icon.classList.toggle("fa-eye-slash");
         });
     }
+    // Inicializuj toggle pre heslo admina
     setupPasswordToggle("passwordAdminLogin", "togglePasswordAdminLogin");
     </script>
 </body>

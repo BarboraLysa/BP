@@ -55,25 +55,30 @@
     </table>
     
 
+    <!-- JavaScript funkcie -->
     <script>
+        // Pridanie event listenerov na tlačidlá "Schváliť"
         document.querySelectorAll('.approve-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const lockerId = button.getAttribute('data-id');
+                // POST request na schválenie
                 fetch(`/approve_locker/${lockerId}`, {
                     method: 'POST'
-                }).then(res => location.reload());
+                }).then(res => location.reload()); // Po úspechu obnov stránku
             });
         });
         
+        // Pridanie event listenerov na tlačidlá "Odmietnuť"
         document.querySelectorAll('.reject-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const lockerId = button.getAttribute('data-id');
                 fetch(`/reject_locker/${lockerId}`, {
                     method: 'POST'
-                }).then(res => location.reload());
+                }).then(res => location.reload()); // Po úspechu obnov stránku
             });
         });
 
+        // Pridanie event listenerov na tlačidlá "Vygenerovať kód"
         document.querySelectorAll('.gencode-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const id = button.getAttribute('data-id');
@@ -90,12 +95,15 @@
             });
         });
 
+        // Pridanie event listenerov na tlačidlá "Vymazať kód"
         document.querySelectorAll('.delete-code-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
                 const id = btn.getAttribute('data-id');
+                // Potvrdenie od používateľa
                 if (!confirm(`Naozaj vymazať kód pre locker ${id}?`)) return;
 
                 try {
+                    // POST request na vymazanie
                     const res = await fetch(`/delete_code/${id}`, {
                     method: 'POST',
                     credentials: 'same-origin'

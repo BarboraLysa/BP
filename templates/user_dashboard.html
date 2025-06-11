@@ -46,12 +46,14 @@
     </table>
 
     <script>
+        // Pridanie event listenerov na tlačidlá "Požiadať o schránku"
         document.querySelectorAll('.request-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const lockerId = button.getAttribute('data-id');
+                // POST request na /request_locker/<id>
                 fetch(`/request_locker/${lockerId}`, {
                     method: 'POST'
-                }).then(res => location.reload());
+                }).then(res => location.reload()); // Po odoslaní obnov stránku
             });
         });
         </script>
